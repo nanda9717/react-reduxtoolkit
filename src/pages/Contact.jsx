@@ -1,7 +1,7 @@
 function Contact() {
     return (
             <div className="card">
-                <h2>Contact</h2>
+                <h2>Contact Page</h2>
             </div>
     )
 }
