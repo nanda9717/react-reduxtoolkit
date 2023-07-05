@@ -17,6 +17,11 @@ const routes = [
         element: lazy(() => import('./pages/Contact'))
     },
     {
+        name: 'Blogs',
+        path: '/blogs',
+        element: lazy(() => import('./pages/Blogs'))
+    },
+    {
         name: 'All',
         path: '*',
         element: lazy(() => import('./pages/PageNotFound'))
