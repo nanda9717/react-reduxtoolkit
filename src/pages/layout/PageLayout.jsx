@@ -8,6 +8,7 @@ function PageLayout(props) {
                 <Link className="link" to='/'>Home</Link>
                 <Link className="link" to='/about'>About</Link>
                 <Link className="link" to='/contact'>Contact</Link>
+                <Link className="link" to='/blogs'>Blogs</Link>
             </div>
             <div className="card">
                 <Outlet />
