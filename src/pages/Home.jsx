@@ -1,9 +1,23 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { setBlogList, setLoading } from '../redux/slices/blogs/blogSlice';
+import { getBlogsList } from '../services/blog';
 
 const Home = () => {
 
-    const { blogList } = useSelector((state) => state.blogs );
+    const dispatch = useDispatch()
+    const { blogList, loading } = useSelector((state) => state.blogs );
+
+    useEffect(()=>{
+        if(blogList.length === 0){
+            dispatch(setLoading(true));
+            (async()=>{
+                const blogs = await getBlogsList();
+                dispatch(setBlogList(blogs));
+                dispatch(setLoading(false));
+            })()
+        }
+    },[])
 
     return (
             <div className="card">
@@ -15,7 +29,7 @@ const Home = () => {
                           <li key={index}>{row.title}</li>
                         )
                     })}
-                    { (blogList.length === 0) ? <li>No Data Found</li> : '' }
+                    { (loading) ? <li>Loading...</li> : (blogList.length === 0) ? <li>No Data Found</li> : '' }
                 </ul>
             </div>
     )
