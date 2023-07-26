@@ -13,6 +13,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from "react-router-dom";
+import { setUserData, setIsLoggedIn } from "@/redux/slices/login/loginSlice";
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const pages = [{ link: '/', label:'Home' },{ link: '/about', label:'About' },{ link: '/contact', label:'Contact' },{ link: '/blogs', label:'Blogs' }];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -20,6 +23,8 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,6 +40,25 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleProfileClick = (setting) => {
+    if(setting === 'Logout'){
+      localStorage.removeItem("userData");
+      dispatch(setUserData({}));
+      dispatch(setIsLoggedIn(false));
+    }
+    handleCloseUserMenu()
+  }
+
+  const { userData, isLoggedIn } = useSelector((state) => state.login );
+
+  React.useEffect(()=>{
+    if(localStorage.getItem("userData") !== null){
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      dispatch(setUserData(userData));
+      dispatch(setIsLoggedIn(true));
+    }
+  },[])
 
   return (
     <AppBar position="static">
@@ -126,10 +150,10 @@ function Header() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          { (isLoggedIn) ? <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={(userData?.name !== undefined) ? userData?.name : 'Avatar' } src="https://mui.com/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -149,12 +173,20 @@ function Header() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={(e) => handleProfileClick(setting)}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+              </Box> :
+          <Box sx={{ flexGrow: 0 }}>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                <Link style={{color: 'white'}} className="link" to="/login">Login</Link>
+              </Button>
+          </Box> }
         </Toolbar>
       </Container>
     </AppBar>

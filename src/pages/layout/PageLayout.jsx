@@ -2,6 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 import Header from "./Header";
 import Container from '@mui/material/Container';
 import { Grid } from "@mui/material";
+import { ToastContainer } from 'react-toastify';
 
 function PageLayout(props) {
     return (
@@ -12,7 +13,7 @@ function PageLayout(props) {
             <Container maxWidth="lg">
                 <Outlet />
             </Container>
-            <Container sx={{'&.MuiContainer-root':{ padding: '0px' }}}>
+            <Container sx={{'&.MuiContainer-root':{ padding: '0px' }, textAlign:'center'}}>
                 <Grid sx={{background:'#d3d0d0', padding:'18px 0px'}}>
                     <Link className="link" to='/'>Home</Link>
                     <Link className="link" to='/about'>About</Link>
@@ -20,6 +21,7 @@ function PageLayout(props) {
                     <Link className="link" to='/blogs'>Blogs</Link>
                 </Grid>
             </Container>
+            <ToastContainer />
         </div>
     )
   }
