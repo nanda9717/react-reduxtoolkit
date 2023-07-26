@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { setBlogList, setLoading } from '../redux/slices/blogs/blogSlice';
+import { setBlogList, setLoading } from '@/redux/slices/blogs/blogSlice';
 import { useEffect } from 'react';
-import { getBlogsList } from '../services/blog';
+import { getBlogsList } from '@/services/blog';
 
 const Blogs = () => {
 
