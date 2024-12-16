@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import Header from "./Header";
 import Container from '@mui/material/Container';
 import { Grid } from "@mui/material";
@@ -15,10 +15,10 @@ function PageLayout(props) {
             </Grid>
             <Grid sx={{'&.MuiContainer-root':{ padding: '0px' }, textAlign:'center'}}>
                 <Grid sx={{background:'#d3d0d0', padding:'18px 0px'}}>
-                    <Link className="link" to='/'>Home</Link>
-                    <Link className="link" to='/about'>About</Link>
-                    <Link className="link" to='/contact'>Contact</Link>
-                    <Link className="link" to='/blogs'>Blogs</Link>
+                    <NavLink className="link" activeclasscame='active' to='/'>Home</NavLink>
+                    <NavLink className="link" activeclasscame='active' to='/about'>About</NavLink>
+                    <NavLink className="link" activeclasscame='active' to='/contact'>Contact</NavLink>
+                    <NavLink className="link" activeclasscame='active' to='/blogs'>Blogs</NavLink>
                 </Grid>
             </Grid>
             <ToastContainer />
