@@ -31,24 +31,24 @@ const Login = () => {
         }
         const userData = await userLogin({ email: email, password: password });
         if (userData.status === true) {
+            const fakeAuthToken = 'mock-auth-token-123'; 
+            localStorage.setItem('authToken', fakeAuthToken);
             localStorage.setItem("userData", JSON.stringify(userData.data));
             dispatch(setUserData(userData.data));
             dispatch(setIsLoggedIn(true));
             toast({ message: 'User logged in successfully', type: 'success' });
-            setTimeout(() => {
-                navigate("/");
-            }, 3000);
+            navigate("/dashboard");
         } else {
             toast({ message: 'Email or password is wrong', type: 'error' });
             return false;
         }
     };
 
-    React.useEffect(() => {
-        if (isLoggedIn) {
-            navigate("/");
-        }
-    }, [isLoggedIn])
+    // React.useEffect(() => {
+    //     if (isLoggedIn) {
+    //         navigate("/dashboard");
+    //     }
+    // }, [isLoggedIn])
 
     return (
         <Container component="main" maxWidth="sm">

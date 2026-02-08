@@ -44,8 +44,12 @@ function Header() {
   const handleProfileClick = (setting) => {
     if(setting === 'Logout'){
       localStorage.removeItem("userData");
+      localStorage.removeItem("authToken");
       dispatch(setUserData({}));
       dispatch(setIsLoggedIn(false));
+      navigate('/login')
+    }else{
+      navigate(`/${setting.toLowerCase()}`);
     }
     handleCloseUserMenu()
   }
