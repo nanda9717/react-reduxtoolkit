@@ -10,7 +10,7 @@ function PageLayout(props) {
             <div>
                 <Header />
             </div>
-            <Grid>
+            <Grid sx={{minHeight:'84vh'}}>
                 <Outlet />
             </Grid>
             <Grid sx={{'&.MuiContainer-root':{ padding: '0px' }, textAlign:'center'}}>

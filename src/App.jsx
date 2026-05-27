@@ -23,7 +23,7 @@ function App() {
               {
                 routes.map((route, index) => <Route key={`${index}${route.path}`} path={route.path} element={<route.element />}></Route>)
               }
-              {/* The protected route uses the HOC-wrapped component */}
+              {/* The protected route with HOC-wrapped component */}
                 <Route path="/dashboard" element={<AuthDashboard />} />
                 <Route path="/profile" element={<AuthProfile />} />
               {/* Other routes can be added here */}
